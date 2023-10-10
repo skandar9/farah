@@ -1,5 +1,11 @@
 Web application, An association for supporting children with cancer. This national, independent, humanitarian, non-governmental, and non-profit organization aims to provide donation-based services and charitable support to children affected by cancer. Additionally, the platform utilizes Telegram to send notifications, ensuring timely updates and communication with supporters. The overarching goal of the web application is to facilitate the organization's efforts in raising awareness, providing essential services, and delivering support to children facing cancer and their families.
 
+ADMIN		1	
+2.	EMPLOYEE		1	
+3.	DOCTOR		1	
+4.	VOLUNTEER		1	
+5.	GUARDIAN
+
 
 Based on the information provided in the files you shared, the project appears to be a web application built using the Laravel framework, a popular PHP framework for web development. The project includes both frontend and API routes, indicating a separation between the user-facing interface and the backend API.
 
@@ -34,29 +40,31 @@ Overall, this project serves as a testament to your expertise in web development
 
 ## Contents
 
-[Authentication](#authentication)
+- [Authentication](#authentication)
+    - [Sign Up](#SignUp)
+    - [Update Password](#updatePassword)
+  
+[Admin routes definition](#backend-routes)
 
-["signUp" function](#signUp)
+- [Admin middleware](#admin-middleware)
+    - [Define the middleware](#define-the-middleware)
+    - [Register the middleware](#register-the-middleware)
 
-[Update Password function](#updatePassword)
+[Store Request](#store-request)
 
-["Admin routes" definition in web.php file](#backend-routes)
+[pushNotifications (trait function)](#push-notifications)
 
-["storeRequest" function](#storeRequest)
+[Get all patients for specific doctor](#get-all-patients)
 
-["pushNotifications" function](#pushNotifications)
+[Add video to news](#news-video)
 
-["getAllPatients" function](#getAllPatients)
-
-
-["News" page (dashboard) & Add media to specific news](#news-media)
-
+[Store video](#store-video)
 
 ### **authentication**
 
 [🔝 Back to contents](#contents)
 
-### **signUp**
+### **SignUp**
 
 `app\Http\Controllers\Api\AuthController.php`
 
@@ -179,7 +187,7 @@ By using this code, I organized my routes related to the admin section under the
 
 ### **admin-middleware**
 
-### define the middleware
+### **define-the-middleware**
 
 `app\Http\Middleware\AdminMiddleware.php`
 
@@ -222,7 +230,7 @@ The `AdminMiddleware` class checks if the authenticated user has the role of "AD
   
 - If the user is not authenticated, it aborts the request with a 404 Not Found status code using the `abort(404)` function.
 
-### register the middleware
+### **register-the-middleware**
 
 `app\Http\Kernel.php`
 
@@ -259,7 +267,7 @@ The `'admin'` middleware group is defined with a single middleware, `AdminMiddle
 
 [🔝 Back to contents](#contents)
 
-### **storeRequest**
+### **store-request**
 
 `app\Http\Controllers\Api\GuardianApiController.php`
 
@@ -321,7 +329,7 @@ The `storeRequest` method in the provided code snippet is responsible for storin
 
 Here's a step-by-step breakdown of how the code works:
 
-- The `storeRequest` method receives a `GuardianRequest` object as a parameter, which contains data related to the Guardian request.
+- The `storeRequest` method receives a [GuardianRequest](#guardian-request) object as a parameter, which contains data related to the Guardian request.
   
 - The code retrieves the ID of the authenticated user using `auth()->user()->id` and stores it in the `$id` variable.
   
@@ -341,7 +349,7 @@ Here's a step-by-step breakdown of how the code works:
   
 [🔝 Back to contents](#contents)
 
-### **GuardianRequest**
+### **guardian-request**
 
 `app\Http\Requests\GuardianRequest.php`
 
@@ -393,13 +401,13 @@ The rules method defines the validation rules that will be applied to the reques
 public function pushNotifications($ids , $data)
 {
     if (isset($data['url'])){
-    $notifications = Notificat::create([
+    $notifications = Notification::create([
         "title"=>$data['title'],
         "body"=>$data['body'],
         "url"=>$data['url'],
     ]);
     }else{
-    $notifications = Notificat::create([
+    $notifications = Notification::create([
         "title"=>$data['title'],
         "body"=>$data['body'],
     ]);
@@ -444,7 +452,7 @@ public function pushNotifications($ids , $data)
 
 - The function receives an array of user IDs (`$ids`) and the data for the push notification (`$data`).
   
-- Depending on whether the `$data` array contains the `url` key, a new record is created in the `Notificat` model table with the provided title, body, and URL (if available).
+- Depending on whether the `$data` array contains the `url` key, a new record is created in the `Notification` model table with the provided title, body, and URL (if available).
   
 - The notification record is attached to the specified user IDs using the `attach` method.
   
@@ -462,7 +470,7 @@ public function pushNotifications($ids , $data)
 
 [🔝 Back to contents](#contents)
 
-### **getAllPatients**
+### **get-all-patients**
 
 `app\Http\Controllers\Api\DoctorApiController.php`
 
@@ -509,13 +517,11 @@ The Arabic and English names of the place associated with the patient are retrie
    
 [🔝 Back to contents](#contents)
 
-### **news-media**
+### **news-video**
 
-resources\views\news\index.blade.php:
+`resources\views\news\index.blade.php`
 
-```php
-Route::get('/newsVideo/{id}', [Controllers\NewsController::class, 'newsVideo'])->name('news.videos');
-```
+![App Logo](/images/all-news.png)
 
 ```html
 .
@@ -567,14 +573,45 @@ Route::get('/newsVideo/{id}', [Controllers\NewsController::class, 'newsVideo'])-
 .
 .
 .
-
 ```
-resources\views\news\video.blade.php:
+
+This code generates a table with rows representing news items. It displays various information about each news item and provides options to view associated images and videos, edit the news item, and delete it.
+
+It contains two buttons for viewing images and videos associated with a news item:
+
+- The first button:
+   It has an `href` attribute that uses the `route()` helper function to generate a URL for the "admin.news.show" route, which is expected to display images associated with the news item. The news item's ID is passed as a parameter to the route.
+
+- The second button:
+   It has an `href` attribute that uses the `route()` helper function to generate a URL for the ![admin.news.videos](display-videos-route) route, which is expected to display videos associated with the news item. The news item's ID is passed as a parameter to the route
+
+### **display-videos-route**
+
+```php
+Route::get('/newsVideo/{id}', [Controllers\NewsController::class, 'newsVideo'])->name('news.videos');
+```
+This line defines a GET route named `'news.videos'` that maps to the `newsVideo` method of the `NewsController` class. It expects a parameter `{id}` in the URL and handles the request to display videos associated with a news item based on its ID.
+
+### **browse-video-to-specific-news**
+
+![App Logo](/images/add-video.png)
+
+`resources\views\news\video.blade.php`
+
+
+This Blade page appears to be used for displaying a news item and managing its associated videos.
+
+When the "Create" button is clicked (after browsing the video), the form is submitted and the corresponding route (admin.newsVideosStore) is called:
+
+`routes\backend\admin.php`
 
 ```php
 Route::post('/newsVideosStore', [Controllers\NewsController::class, 'newsVideosStore'])->name('newsVideosStore');
 ```
-app\Http\Controllers\NewsController.php:
+
+### **store-video**
+
+`app\Http\Controllers\NewsController.php`
 
 ```php
 public function newsVideosStore(Request $request)
@@ -590,46 +627,30 @@ public function newsVideosStore(Request $request)
 }
 ```
 
-resources\views\layouts\static\sidebar.blade.php:
+The provided code snippet appears to be a method named `newsVideosStore` within a controller. Here's an explanation of its functionality:
 
-```html
-.
-.
-.
-    <li class="nav-item">
-        <a href="#" class="nav-link">
-            <i class="nav-icon far fa-newspaper"></i>
-            <p>
-                {{ __('sidebar.side_bar_menu.news') }}
-                <i class="right fas fa-angle-left"></i>
-            </p>
-        </a>
-        <ul class="nav nav-treeview">
-            <li class="nav-item">
-                <a href="{{ route('admin.news.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>{{ __('sidebar.side_bar_item.view_news') }}</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.news.create') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>{{ __('sidebar.side_bar_item.create_news') }}</p>
-                </a>
-            </li>
-        </ul>
-    </li>
-.
-.
-.
+```php
+public function newsVideosStore(Request $request)
+{
+    $data = $request->all();
+    foreach ($request->file('image') as $image) {
+        $image_name = time() . $image->getClientOriginalName();
+        $image->move(public_path('dist/img/'), $image_name);
+        $data['image'] = $image_name;
+        $this->news_repo->storeVideos($data);
+    }
+    return redirect()->back();
+}
 ```
 
+This method handles the storage of uploaded news videos by moving them to a designated directory, storing the relevant data in the database, and then redirecting the user back to the previous page.
+
+- It iterates over each uploaded file using a `foreach` loop on `$request->file('image')`. This assumes that the file input field has the name attribute set to `'image[]'`, allowing multiple videos to be uploaded.
+- 
+- Inside the loop, it generates a unique image name for each file by appending the current timestamp to the original name of the file using `time()` and `$image->getClientOriginalName()`.
+  
+- It moves the uploaded video file to the `public/dist/img/` directory using the `move()` method, which takes the destination path and the image name as arguments.
+  
+- It calls the `storeVideos()` method of the `$news_repo` object (that is a repository class) and passes the `$data` array to store the video in the database.
+
 [🔝 Back to contents](#contents)
-
-### **side-translations**
-
-resources\lang\en\sidebar.php:
-
-[🔝 Back to contents](#contents)
-
-
