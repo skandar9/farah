@@ -40,6 +40,10 @@ Overall, this project serves as a testament to your expertise in web development
 
 ## Contents
 
+[Dashboard components](#dashboard-components)
+
+[Tables contents](#tables-contents)
+
 - [Authentication](#authentication)
     - [Sign Up](#SignUp)
     - [Update Password](#updatePassword)
@@ -60,10 +64,18 @@ Overall, this project serves as a testament to your expertise in web development
 
 [Store video](#store-video)
 
-### **authentication**
+### **dashboard-components**
+
+![App Logo](/images/dashboard-components.png)
 
 [🔝 Back to contents](#contents)
 
+### **tables-contents**
+
+For more details about the content of the tables <a href="/farah.pdf" target="_blank">Click here</a>
+[🔝 Back to contents](#contents)
+
+### **authentication**
 ### **SignUp**
 
 `app\Http\Controllers\Api\AuthController.php`
