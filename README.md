@@ -1,44 +1,20 @@
-Web application, An association for supporting children with cancer. This national, independent, humanitarian, non-governmental, and non-profit organization aims to provide donation-based services and charitable support to children affected by cancer. Additionally, the platform utilizes Telegram to send notifications, ensuring timely updates and communication with supporters. The overarching goal of the web application is to facilitate the organization's efforts in raising awareness, providing essential services, and delivering support to children facing cancer and their families.
+Project overview:
 
-ADMIN		1	
-2.	EMPLOYEE		1	
-3.	DOCTOR		1	
-4.	VOLUNTEER		1	
-5.	GUARDIAN
+Web application, An association for supporting children with cancer. This national, independent, humanitarian, non-governmental, and non-profit organization aims to provide donation-based services and charitable support to children affected by cancer.
 
+The project focused on user authentication and authorization, as seen in the routes related to user authentication, signup, and password management. It provides endpoints for user login, signup, password reset via email, and retrieving user information. There are also routes for updating user information, changing passwords, and managing notifications.
 
-Based on the information provided in the files you shared, the project appears to be a web application built using the Laravel framework, a popular PHP framework for web development. The project includes both frontend and API routes, indicating a separation between the user-facing interface and the backend API.
-
-The project seems to be focused on user authentication and authorization, as seen in the routes related to user authentication, signup, and password management. It provides endpoints for user login, signup, password reset via email, and retrieving user information. There are also routes for updating user information, changing passwords, and managing notifications.
-
-The API routes are protected by the 'auth:api' middleware, indicating that authentication is required to access them. This suggests that the project implements token-based authentication for API requests, where users need to authenticate and obtain a token to make authorized API calls.
-
-The project involves different user roles, such as "Guardian" and "Doctor." Guardians have access to routes related to managing requests, transfers, medical profiles, emergency services, and more. Doctors have routes for managing their profiles, updating availability, interacting with patients, responding to requests, and generating reports.
-
-The project also incorporates features like handling nested object validation, managing Docker containers, setting default values for GraphQL input arguments, managing multiple Node.js versions using NVM, installing specific versions of Ruby gems, and understanding algorithmic complexity using "Big O" notation.
-
-Overall, the project demonstrates a comprehensive web application that includes user authentication, role-based access control, API functionality, and various features related to user management, healthcare, and software development. It showcases the usage of Laravel, PHP, Docker, GraphQL, Node.js, Ruby, and ReactJS technologies.
+The project involves different user roles, such as "ADMIN", "Guardian", "Doctor". "VOLUNTEER" and "EMPLOYEE" . Guardians have access to routes related to managing requests, transfers, medical profiles, emergency services, and more. Doctors have routes for managing their profiles, updating availability, interacting with patients, responding to requests, and generating reports.
 
 
-he project is a comprehensive web application developed using the Laravel framework, a powerful PHP framework known for its efficiency and flexibility. It encompasses both frontend and API routes, showcasing a clear separation between the user interface and the backend API.
 
-At its core, the project emphasizes secure user authentication and authorization. It offers a seamless user experience with features like user registration, login, and password management, ensuring that only authorized individuals can access the application's functionalities. The project employs token-based authentication for API requests, granting users access to protected routes by validating their authentication tokens.
-
-With a focus on user management, the project caters to various user roles, most notably "Guardians" and "Doctors." Guardians are provided with a range of features to manage requests, transfers, medical profiles, emergency services, and more. They can interact with the system to store requests, view processed and pending requests, and access vital medical information. Doctors, on the other hand, have dedicated routes to manage their profiles, update availability, communicate with patients, respond to requests, and generate detailed reports.
-
-The project integrates several technologies and best practices to enhance its functionality and performance. It leverages Docker to facilitate containerization and streamline the deployment process, allowing for better scalability and portability. Additionally, the application embraces GraphQL, a query language for APIs, enabling seamless integration with clients and providing efficient data fetching capabilities.
-
-The inclusion of Node.js showcases the project's versatility in managing multiple Node.js versions using NVM (Node Version Manager). This feature allows developers to switch between different Node.js versions effortlessly, ensuring compatibility and flexibility when developing and deploying Node.js applications.
-
-Furthermore, the project demonstrates proficiency in Ruby development, showcasing the ability to install specific versions of Ruby gems. This capability ensures that the project can leverage the desired functionality provided by specific gem versions, enhancing compatibility and maintaining code quality.
-
-An essential aspect of the project is its utilization of algorithmic analysis through "Big O" notation. By understanding algorithmic efficiency, the application optimizes performance and resource utilization, ensuring that operations are executed in the most efficient manner possible.
-
-From a frontend perspective, the project incorporates ReactJS, a popular JavaScript library for building user interfaces. This allows for the creation of dynamic and interactive components, enabling a seamless user experience and responsive design.
-
-Overall, this project serves as a testament to your expertise in web development, showcasing your proficiency in Laravel, PHP, Docker, GraphQL, Node.js, Ruby, and ReactJS. Its focus on user authentication, role-based access control, API development, and integration with various technologies highlights your ability to create robust and versatile web applications. By emphasizing the project's features and technologies in your CV and README.md file, you can effectively communicate your skills in backend and frontend development, API design, database management, and the integration of cutting-edge technologies.
+> :warning: **Warning:** This contents below ↓ contains just parts of my code.
+>                        You can access my full project files by clone it from my GitLab repository
+>                        (requires asking for my permissions  to grant you access to it):
+>                        https://gitlab.com/skandar.s1998/farah 
 
 ## Contents
+(contains descriptive parts of my code)
 
 [Dashboard components](#dashboard-components)
 
@@ -73,6 +49,7 @@ Overall, this project serves as a testament to your expertise in web development
 ### **tables-contents**
 
 For more details about the content of the tables <a href="/farah.pdf" target="_blank">Click here</a>
+
 [🔝 Back to contents](#contents)
 
 ### **authentication**
